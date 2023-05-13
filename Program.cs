@@ -16,9 +16,9 @@ namespace WeatherJournal
                 Console.WriteLine("WEATHER JOURNAL MAIN MENU:");
                 Console.WriteLine("1) Input journal entry");
                 Console.WriteLine("2) Check entries");
-                Console.WriteLine("3) Exit program");
+                Console.WriteLine("0) Exit program");
 
-                Console.Write("Please input your choice (1-3): ");
+                Console.Write("Please input your choice (1-2), Enter 0 if you want to exit: ");
                 string? choice = Console.ReadLine();
 
                 switch (choice)
@@ -55,11 +55,11 @@ namespace WeatherJournal
                         }
                         Console.WriteLine();
                         break;
-                    case "3":
+                    case "0":
                         Console.WriteLine("Exiting program...");
                         return;
                     default:
-                        Console.WriteLine("Invalid input. Please enter a valid option (1-3).");
+                        Console.WriteLine("Invalid input. Please enter a valid option (1-2), Enter 0 to exit.");
                         Console.WriteLine();
                         break;
                 }

@@ -27,22 +27,41 @@ namespace WeatherJournal
                         Console.WriteLine("Enter weather information:");
 
                         Console.Write("Date (DD-MM-YYYY): ");
-                        string? date = Console.ReadLine();
-
-                        Console.Write("Temperature (in degrees Celsius): ");
-                        double temperature;
-                        while (!double.TryParse(Console.ReadLine(), out temperature))
+                        string? date;
+                        while (true)
                         {
-                            Console.Write("Invalid temperature. Please enter a valid number: ");
+                            Console.Write("Date(DD-MM-YYYY):");
+                            date = Console.ReadLine();
+
+                            if (DateTime.TryParseExact(date, "dd-MM-yyyy", null, System.Globalization.DateTimeStyles.None, out DateTime result))
+                            {
+                                break;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Invalid date format. Please enter a valid date (DD-MM-YYYY).");
+                            }
                         }
 
+                        double temperature;
+                        while (true)
+                        {
+                            Console.Write("temperature (in degrees Celsius):");
+                            if (double.TryParse(Console.ReadLine(), out temperature))
+                            {
+                                break;
+                            }
+                            else
+                            {
+                                Console.Write("Invalid temperature. Please enter a valid number:");
+                            }
+                        }
                         Console.Write("Weather condition: ");
                         string? condition = Console.ReadLine();
 
                         dates[count] = date;
                         temperatures[count] = temperature;
-                        conditions[count] = condition;
-                        count++;
+                        conditions[count] = condition; count++;
 
                         Console.WriteLine("Weather information recorded.");
                         Console.WriteLine();

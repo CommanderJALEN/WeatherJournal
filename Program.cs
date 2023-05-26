@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace WeatherJournal
 {
@@ -6,10 +7,9 @@ namespace WeatherJournal
     {
         static void Main(string[] args)
         {
-            string?[] dates = new string[10];
-            double[] temperatures = new double[10];
-            string?[] conditions = new string[10];
-            int count = 0;
+            List<string?> dates = new List<string?>();
+            List<double> temperatures = new List<double>();
+            List<string?> conditions = new List<string?>();
 
             while (true)
             {
@@ -26,26 +26,12 @@ namespace WeatherJournal
                     case "1":
                         Console.WriteLine("Enter weather information:");
 
-                        string? date;
-                        while (true)
-                        {
-                            Console.Write("Date(DD-MM-YYYY):");
-                            date = Console.ReadLine();
-
-                            if (DateTime.TryParseExact(date, "dd-MM-yyyy", null, System.Globalization.DateTimeStyles.None, out DateTime result))
-                            {
-                                break;
-                            }
-                            else
-                            {
-                                Console.WriteLine("Invalid date format. Please enter a valid date (DD-MM-YYYY).");
-                            }
-                        }
+                        string? date = GetValidDate();
 
                         double temperature;
                         while (true)
                         {
-                            Console.Write("temperature (in degrees Celsius):");
+                            Console.Write("Temperature (in degrees Celsius):");
                             if (double.TryParse(Console.ReadLine(), out temperature))
                             {
                                 break;
@@ -58,28 +44,49 @@ namespace WeatherJournal
                         Console.Write("Weather condition: ");
                         string? condition = Console.ReadLine();
 
-                        dates[count] = date;
-                        temperatures[count] = temperature;
-                        conditions[count] = condition; count++;
+                        dates.Add(date);
+                        temperatures.Add(temperature);
+                        conditions.Add(condition);
 
                         Console.WriteLine("Weather information recorded.");
                         Console.WriteLine();
                         break;
+
                     case "2":
                         Console.WriteLine("Weather journal entries:");
-                        for (int i = 0; i < count; i++)
+                        for (int i = 0; i < dates.Count; i++)
                         {
                             Console.WriteLine($"Date: {dates[i]}, Temperature: {temperatures[i]}C, Condition: {conditions[i]}");
                         }
                         Console.WriteLine();
                         break;
+
                     case "0":
                         Console.WriteLine("Exiting program...");
                         return;
+
                     default:
                         Console.WriteLine("Invalid input. Please enter a valid option (1-2), Enter 0 to exit.");
                         Console.WriteLine();
                         break;
+                }
+            }
+        }
+        
+        static string? GetValidDate()
+        {
+            while (true)
+            {
+                Console.Write("Date(DD-MM-YYYY):");
+                string? date = Console.ReadLine();
+                
+                if (DateTime.TryParseExact(date, "dd-mm-yyyy", null, System.Globalization.DateTimeStyles.None, out DateTime result))
+                {
+                    return date;
+                }
+                else
+                {
+                Console.WriteLine("Invalid date format. Please enter a valid date (DD-MM-YYYY).");
                 }
             }
         }

@@ -26,7 +26,6 @@ namespace WeatherJournal
                     case "1":
                         Console.WriteLine("Enter weather information:");
 
-                        Console.Write("Date (DD-MM-YYYY): ");
                         string? date;
                         while (true)
                         {

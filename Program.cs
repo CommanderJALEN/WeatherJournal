@@ -7,9 +7,7 @@ namespace WeatherJournal
     {
         static void Main(string[] args)
         {
-            List<string?> dates = new List<string?>();
-            List<double> temperatures = new List<double>();
-            List<string?> conditions = new List<string?>();
+            List<WeatherEntry?> weatherEntries = new List<WeatherEntry?>();
 
             while (true)
             {
@@ -25,23 +23,28 @@ namespace WeatherJournal
                 {
                     case "1":
                         Console.WriteLine("Enter weather information:");
-
+                    
                         string? date = GetValidDate();
                         double temperature = GetValidTemperature();
-
+                    
                         Console.Write("Weather condition: ");
                         string? condition = Console.ReadLine();
-
-                        dates.Add(date);
-                        temperatures.Add(temperature);
-                        conditions.Add(condition);
-
+                    
+                        WeatherEntry entry = new WeatherEntry
+                        {
+                            Date = date,
+                            Temperature = temperature,
+                            Condition = condition
+                        };
+                    
+                        weatherEntries.Add(entry);
+                    
                         Console.WriteLine("Weather information recorded.");
                         Console.WriteLine();
                         break;
 
                     case "2":
-                        DisplayWeatherEntries(dates, temperatures, conditions);
+                        DisplayWeatherEntries(weatherEntries);
                         break;
 
                     case "0":
@@ -90,12 +93,12 @@ namespace WeatherJournal
             }
         }
 
-        static void DisplayWeatherEntries(List<string?> dates, List<double> temperatures, List<string?> conditions)
+        static void DisplayWeatherEntries(List<WeatherEntry?> weatherEntries)
         {
             Console.WriteLine("Weather journal entries:");
-            for (int i = 0; i < dates.Count; i++)
+            foreach (WeatherEntry? entry in weatherEntries)
             {
-                Console.WriteLine($"Date: {dates[i]}, Temperature: {temperatures[i]}C, Condition: {conditions[i]}");
+            Console.WriteLine($"Date: {entry.Date}, Temperature: {entry.Temperature}C, Condition: {entry.Condition}");
             }
             Console.WriteLine();
         }
